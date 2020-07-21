@@ -6,5 +6,4 @@ app = Flask(__name__)
 @app.route('/index/')
 def index():
 	return render_template('index.html',
-							logo_img=url_for('static', filename="images/robot.jpg",
-							script_js=url_for('static', filename="js/script.js")))
+							logo_img=url_for('static', filename="images/robot.jpg"))

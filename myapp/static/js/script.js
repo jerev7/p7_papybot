@@ -9,6 +9,7 @@
 //     });
 // });
 $(document).ready(function() {
+	$("#imggoogle").hide();
     $("#submit_button").on('click', function (event) {
     	event.preventDefault();
     	$.getJSON("/backend_process", {
@@ -16,8 +17,9 @@ $(document).ready(function() {
     	}, function(data) {
     		if (data.backend_result != "") {
     			event.preventDefault();
-    			alert(data.backend_result)
-    		};
+    			$("#imggoogle").attr('src', data.backend_result);
+    			$("#imggoogle").show();
+    		} else {$("#imggoogle").hide()};
     	});
     });
 });

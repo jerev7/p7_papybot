@@ -2,3 +2,4 @@ Pipfile
 Pipfile.lock
 projectp7.sublime-project
 projectp7.sublime-workspace
+myapp/config.py

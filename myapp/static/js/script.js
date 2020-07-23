@@ -14,7 +14,11 @@ function updateQuestion(route) {
 	    		note: $("#note").val(),
 	    	}, function(data) { 
 	    			event.preventDefault();
-	    			$("#imggoogle").attr('src', data.backend_result);
+	    			$("#imggoogle").attr('src', data.backend_result_embedmap);
+	    			var key_word = data.key_word
+	    			$.getJSON(data.backend_result_geocodejson, function(data) {
+	    				$("#result_adress").text("L'adresse de " + key_word + " est le " + data["results"][0]["formatted_address"] + ", wikipedia sera là")
+	    			});
 	    			$("#imggoogle").show();
 	    	});
 }

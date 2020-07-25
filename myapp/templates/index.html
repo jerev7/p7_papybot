@@ -18,7 +18,7 @@
       <title>Papybot</title>
   </head>
 
-  <body class="bg-primary">
+  <body class="bg-light">
     <div class="bg-dark">  
       <div class="container">
         <div class="row">
@@ -36,29 +36,50 @@
         <h1>Posez vos questions à Papy Bot, il a toutes les réponses !</h1>
       </div>
       <div class="row">
-        <form>
-          <div class="form-group mt-3">
-            <label for="note">Ecrivez votre question dans la case ci-dessous :</label>
-            <input id="note" type="input" rows="1" class="form-control" required></input>
+        <div class="col">
+          <form>
+            <div class="form-group mt-3">
+              <label for="note">Ecrivez votre question dans la case ci-dessous :</label>
+              <input id="note" type="input" rows="1" class="form-control" required></input>
+            </div>
+
+            <button id="submit_button" type="submit" class="btn btn-primary">Envoyer</button>          
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div id="loader" class="spinner-border m-3" role="status">
+            <span class="sr-only"><strong>Loading...</strong></span>
           </div>
-          
-          <button id="submit_button" type="submit" class="btn btn-primary">Envoyer</button>
-        </form>
+        </div>
       </div>
       <div class="row">
-        <p id="result"></p>
+        <div class="col">
+          <form>
+            <div class="form-group mt-3">
+                <label for="note">Conversation avec Papy:</label>
+                <textarea id="conversation" rows="5" class="form-control" disabled></textarea>
+              </div>
+          </form>
+        </div>
       </div>
       <div class="row">
-        <iframe
-          id="imggoogle"
-          width="600"
-          height="450"
-          frameborder="0" style="border:0"
-          src="" allowfullscreen>
-        </iframe>
+        <div class="col">
+          <a id="wikilink" href="#">Lien vers Wikipedia</a>
+        </div>
       </div>
       <div class="row">
-        <p id="result_adress"></p>
+        <div class="col mt-5">
+          <iframe
+            id="imggoogle"
+            width="600"
+            height="450"
+            frameborder="0" style="border:0"
+            src="" allowfullscreen>
+          </iframe>
+        </div>
+      </div>
     </div>
 
     <footer class="fixed-bottom">
@@ -67,7 +88,7 @@
           <div class="row">
             <div class="col">
               <ul class="list-inline text-center">
-                <li class="list-inline-item"><a href="#">Jérémie Verdet</a></li>
+                <li class="list-inline-item text-primary">Jérémie Verdet</li>
                 <li class="list-inline-item">&middot;</li>
                 <li class="list-inline-item"><a href="https://github.com/jerev7/p7_papybot">Link to my Github</a></li>
                 <li class="list-inline-item">&middot;</li>

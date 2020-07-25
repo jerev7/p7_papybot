@@ -13,30 +13,49 @@ function updateQuestion(route) {
 	$.getJSON(route, {
 	    		note: $("#note").val(),
 	    	}, function(data) { 
-	    			event.preventDefault();
 	    			$("#imggoogle").attr('src', data.backend_result_embedmap);
-	    			var key_word = data.key_word
+	    			var key_word = data.key_word;
 	    			$.getJSON(data.backend_result_geocodejson, function(data) {
-	    				$("#result_adress").text("L'adresse de " + key_word + " est le " + data["results"][0]["formatted_address"] + ", wikipedia sera là")
+	    				let first_part = ("Votre question : " + ($("#note").val()));
+	    				$("#conversation").show()
+	    				$("#conversation").text(first_part);
+	    				$('#loader').show()
+	    				$("#loader").fadeOut(3000, function(event) {
+	    					$("#conversation").append("\nPapybot : Tout de suite mon petit. L'adresse de " + key_word + " est " + data["results"][0]["formatted_address"]).delay(5000);
+	    					let street = data["results"][0]["address_components"][1]["long_name"];
+	    					$.getJSON("https://fr.wikipedia.org/api/rest_v1/page/summary/" + street, function(data) {
+	    						$("#conversation").append("\nMais laisse moi t'en dire plus !... ");
+	    						$("#conversation").append(data["extract"] + "\n");
+	    						$("#wikilink").attr('href', "https://fr.wikipedia.org/wiki/" + street)
+	    						$("#wikilink").show();
+	    						$("#imggoogle").show();
+	    					});
+	    				})
 	    			});
-	    			$("#imggoogle").show();
 	    	});
 }
+$("#conversation").hide()
 $("#imggoogle").hide();
+$("#loader").hide();
+$("#wikilink").hide();
 $(document).ready(function() {
-	$("#result").hide();
     $("#submit_button").on('click', function (event) {
     	if ($("#note").val() != "") {
     		event.preventDefault();
-    		$("#result").text("Votre question est : " + $("#note").val());
-    		$("#result").show();
 	    	updateQuestion("/backend_process");
 	    };
     });
 });
+// $("#imggoogle").on('change', function() {
+//   $('#mdb-preloader').delay(1000).fadeOut(300);
+
+// LA BONNE ADRESSE PR L'EXTRAIT DE WIKIPEDIA EST ////////////////////////////////////////////////////////////////////////////////////////////////////////
+// https://en.wikipedia.org/w/api.php?action=query&prop=extracts&titles=OpenClassrooms&exintro=&exsentences=2&explaintext=&redirects=&formatversion=2/////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
+//https://en.wikipedia.org/w/api.php?format=json&action=query&titles=OpenClassrooms&prop=revisions&rvprop=content&callback=?
   
 // function dowiki(place) {
 //     var URL = 'https://fr.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=';

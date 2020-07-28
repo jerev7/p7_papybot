@@ -13,24 +13,18 @@ function updateQuestion(route) {
 	$.getJSON(route, {
 	    		note: $("#note").val(),
 	    	}, function(data) { 
-	    			$("#imggoogle").attr('src', data.backend_result_embedmap);
-	    			var key_word = data.key_word;
-	    			$.getJSON(data.backend_result_geocodejson, function(data) {
-	    				let first_part = ("Votre question : " + ($("#note").val()));
-	    				$("#conversation").show()
-	    				$("#conversation").text(first_part);
-	    				$('#loader').show()
-	    				$("#loader").fadeOut(3000, function(event) {
-	    					$("#conversation").append("\nPapybot : Tout de suite mon petit. L'adresse de " + key_word + " est " + data["results"][0]["formatted_address"]).delay(5000);
-	    					let street = data["results"][0]["address_components"][1]["long_name"];
-	    					$.getJSON("https://fr.wikipedia.org/api/rest_v1/page/summary/" + street, function(data) {
-	    						$("#conversation").append("\nMais laisse moi t'en dire plus !... ");
-	    						$("#conversation").append(data["extract"] + "\n");
-	    						$("#wikilink").attr('href', "https://fr.wikipedia.org/wiki/" + street)
-	    						$("#wikilink").show();
-	    						$("#imggoogle").show();
-	    					});
-	    				})
+	    			$("#imggoogle").attr('src', data.map_url);
+    				let first_part = ("Votre question : " + ($("#note").val()));
+    				$("#conversation").show()
+    				$("#conversation").text(first_part);
+    				$('#loader').show()
+    				$("#loader").fadeOut(3000, function(event) {
+    					$("#conversation").append("\nPapybot : Tout de suite mon petit. L'adresse de " + data.keyword + " est " + data.adress).delay(5000);
+						$("#conversation").append("\nMais laisse moi t'en dire plus !... ");
+						$("#conversation").append(data.wiki_extract + "\n");
+						$("#wikilink").attr('href', data.wiki_link)
+						$("#wikilink").show();
+						$("#imggoogle").show();
 	    			});
 	    	});
 }
@@ -76,3 +70,40 @@ $(document).ready(function() {
 //     });
 // }
 // dowiki("Openclassrooms")
+// function updateQuestion(route) {
+// 	$.getJSON(route, {
+// 	    		note: $("#note").val(),
+// 	    	}, function(data) { 
+// 	    			$("#imggoogle").attr('src', data.backend_result_embedmap);
+// 	    			var key_word = data.key_word;
+// 	    			$.getJSON(data.backend_result_geocodejson, function(data) {
+// 	    				let first_part = ("Votre question : " + ($("#note").val()));
+// 	    				$("#conversation").show()
+// 	    				$("#conversation").text(first_part);
+// 	    				$('#loader').show()
+// 	    				$("#loader").fadeOut(3000, function(event) {
+// 	    					$("#conversation").append("\nPapybot : Tout de suite mon petit. L'adresse de " + key_word + " est " + data["results"][0]["formatted_address"]).delay(5000);
+// 	    					let street = data["results"][0]["address_components"][1]["long_name"];
+// 	    					$.getJSON("https://fr.wikipedia.org/api/rest_v1/page/summary/" + street, function(data) {
+// 	    						$("#conversation").append("\nMais laisse moi t'en dire plus !... ");
+// 	    						$("#conversation").append(data["extract"] + "\n");
+// 	    						$("#wikilink").attr('href', "https://fr.wikipedia.org/wiki/" + street)
+// 	    						$("#wikilink").show();
+// 	    						$("#imggoogle").show();
+// 	    					});
+// 	    				})
+// 	    			});
+// 	    	});
+// }
+// $("#conversation").hide()
+// $("#imggoogle").hide();
+// $("#loader").hide();
+// $("#wikilink").hide();
+// $(document).ready(function() {
+//     $("#submit_button").on('click', function (event) {
+//     	if ($("#note").val() != "") {
+//     		event.preventDefault();
+// 	    	updateQuestion("/backend_process");
+// 	    };
+//     });
+// });

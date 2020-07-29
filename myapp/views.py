@@ -28,16 +28,17 @@ def backend_process():
 
 def question_to_keyword(user_input):
     input_into_words = user_input.replace("'", " ' ")
+    print(input_into_words)
     input_list = input_into_words.split(" ")
-    for element in input_list:
-        if element in config.STOP_WORDS:
-            input_list.remove(element)
-    if "adresse" in input_list:
-        adress_index = input_list.index("adresse")
-        list_updated = input_list[adress_index + 1:]
+    list_updating = [i for i in input_list if i not in config.STOP_WORDS]
+    print(list_updating)
+    if "adresse" in list_updating:
+        adress_index = list_updating.index("adresse")
+        list_updated = list_updating[adress_index + 1:]
     else:
-        list_updated = input_list
+        list_updated = list_updating
     keyword = " ".join(list_updated)
+    print(keyword)
     return keyword
 
 

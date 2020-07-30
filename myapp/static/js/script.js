@@ -14,14 +14,14 @@ function updateQuestion(route) {
 	    		note: $("#note").val(),
 	    	}, function(data) { 
 	    			$("#imggoogle").attr('src', data.map_url);
-    				let first_part = ("Votre question : " + ($("#note").val()));
+    				let first_part = ("Vous : " + ($("#note").val()));
     				$("#conversation").show()
     				$("#conversation").text(first_part);
     				$('#loader').show()
     				$("#loader").fadeOut(3000, function(event) {
     					$("#conversation").append("\nPapybot : Tout de suite mon petit. L'adresse de " + data.keyword + " est " + data.adress).delay(5000);
-						$("#conversation").append("\nMais laisse moi t'en dire plus !... ");
-						$("#conversation").append(data.wiki_extract + "\n");
+						$("#conversation").append("\nPapybot : Mais laisse moi t'en dire plus !... ");
+						$("#conversation").append("\n" + data.wiki_extract);
 						$("#wikilink").attr('href', data.wiki_link)
 						$("#wikilink").show();
 						$("#imggoogle").show();

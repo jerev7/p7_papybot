@@ -12,7 +12,6 @@ def index():
 
 @app.route('/backend_process')
 def backend_process():
-    # removing stop words from question :
     user_input = request.args.get('note')
     keyword = question_to_keyword(user_input)
     my_map = Map(keyword)
@@ -28,17 +27,14 @@ def backend_process():
 
 def question_to_keyword(user_input):
     input_into_words = user_input.replace("'", " ' ")
-    print(input_into_words)
     input_list = input_into_words.split(" ")
     list_updating = [i for i in input_list if i not in config.STOP_WORDS]
-    print(list_updating)
     if "adresse" in list_updating:
         adress_index = list_updating.index("adresse")
         list_updated = list_updating[adress_index + 1:]
     else:
         list_updated = list_updating
     keyword = " ".join(list_updated)
-    print(keyword)
     return keyword
 
 
@@ -46,11 +42,17 @@ def question_to_keyword(user_input):
 class Map():
     
     def __init__(self, keyword):
-        self.keyword = keyword.replace(" ", "+")
-        r = requests.get("https://maps.google.com/maps/api/geocode/json?address=France+" + self.keyword + "&sensor=false&key=" + config.key)
-        self.adress_updated = r.json()["results"][0]["formatted_address"]
-        self.street = r.json()["results"][0]["address_components"][1]["long_name"]
+        self.keyword = keyword
+        result_get_adress = self.get_adress()
+        self.adress_updated = result_get_adress["formatted_address"]
+        self.street = result_get_adress["address_components"][1]["long_name"]
         self.map_url = "https://www.google.com/maps/embed/v1/search?q=France+" + keyword + "&key=" + config.key
+
+    def get_adress(self):
+        keyword = self.keyword.replace(" ", "+")
+        r = requests.get("https://maps.google.com/maps/api/geocode/json?address=France+" + keyword + "&sensor=false&key=" + config.key)
+        return r.json()["results"][0]
+
 
 
 class Wikipedia_extract():
@@ -61,29 +63,3 @@ class Wikipedia_extract():
 
 #"https://www.google.com/maps/embed/v1/search?q=7+rue+du+chêne+vert&key=
 #https://maps.google.com/maps/api/geocode/json?address=Openclassrooms&sensor=false&key=
-
-# @app.route('/backend_process')
-# def backend_process():
-#     # removing stop words from question :
-#     my_note = request.args.get('note')
-#     new_note1 = my_note.replace("'", " ' ")
-#     print(new_note1)
-#     note_list = new_note1.split(" ")
-#     for element in note_list:
-#         if element in config.STOP_WORDS:
-#             note_list.remove(element)
-#     # keeping only what's come after the word 'adresse' :
-#     print(note_list)
-#     if "adresse" in note_list:
-#         adress_index = note_list.index("adresse")
-#         new_list = note_list[adress_index + 1:]
-#     else:
-#         new_list = note_list
-#     # setting up the google map url
-#     note_str = " ".join(new_list)
-#     new_note2 = (note_str.replace(" ", "+"))
-#     google_map_url = "https://www.google.com/maps/embed/v1/search?q=France+" + new_note2 + "&key=" + config.key
-#     print(google_map_url)
-#     geocode_json = "https://maps.google.com/maps/api/geocode/json?address=France+" + new_note2 + "&sensor=false&key=" + config.key
-#     print("adresse geocode : " + geocode_json)
-#     return jsonify(backend_result_embedmap = google_map_url, backend_result_geocodejson = geocode_json, key_word = new_note2.replace("+", " "))

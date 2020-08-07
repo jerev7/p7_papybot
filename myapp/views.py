@@ -60,6 +60,3 @@ class Wikipedia_extract():
     def __init__(self, street):
         r = requests.get("https://fr.wikipedia.org/api/rest_v1/page/summary/" + street)
         self.extract = r.json()["extract"]
-
-#"https://www.google.com/maps/embed/v1/search?q=7+rue+du+chêne+vert&key=
-#https://maps.google.com/maps/api/geocode/json?address=Openclassrooms&sensor=false&key=

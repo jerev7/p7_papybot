@@ -4,3 +4,5 @@ projectp7.sublime-project
 projectp7.sublime-workspace
 myapp/config.py
 myapp/__pycache__
+geckodriver.log
+myapp/geckodriver.log

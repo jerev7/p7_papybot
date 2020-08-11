@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, request, jsonify
 import requests
-from boto.s3.connection import S3Connection
+from boto3.s3.connection import S3Connection
 KEY = S3Connection(os.environ['KEY'])
 app = Flask(__name__)
 

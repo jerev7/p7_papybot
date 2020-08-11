@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, request, jsonify
 import requests
-from . import config
+# from . import config
 
 app = Flask(__name__)
 
@@ -48,11 +48,11 @@ class Map():
         result_get_adress = self.get_adress()
         self.adress_updated = result_get_adress["formatted_address"]
         self.street = result_get_adress["address_components"][1]["long_name"]
-        self.map_url = "https://www.google.com/maps/embed/v1/search?q=France+" + keyword + "&key=" + config.key
+        self.map_url = "https://www.google.com/maps/embed/v1/search?q=France+" + keyword + "&key=" + key
 
     def get_adress(self):
         keyword = self.keyword.replace(" ", "+")
-        r = requests.get("https://maps.google.com/maps/api/geocode/json?address=France+" + keyword + "&sensor=false&key=" + config.key)
+        r = requests.get("https://maps.google.com/maps/api/geocode/json?address=France+" + keyword + "&sensor=false&key=" + key)
         return r.json()["results"][0]
 
 

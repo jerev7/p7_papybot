@@ -63,8 +63,9 @@ class Map():
         for i in range(0, 5):
             if result_get_adress["address_components"][i]["types"][0] == "route":
                 street_key = i
-
-        self.street = result_get_adress["address_components"][street_key]["long_name"]
+                self.street = result_get_adress["address_components"][street_key]["long_name"]
+            else:
+                self.street = result_get_adress["address_components"][0]["long_name"]
         
 
         # self.street = result_get_adress["address_components"][1]["long_name"]

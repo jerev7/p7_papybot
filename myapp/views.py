@@ -81,7 +81,7 @@ class Wikipedia_extract():
     
     def __init__(self, street):
         r = requests.get("https://fr.wikipedia.org/api/rest_v1/page/summary/" + street)
-        if r.json()["extract"] is None: 
-            self.extract = "Attends, cette rue me dis quelque chose mais ma mémoire me joue des tours on dirait... Pose moi une autre question s'il te plait..."
+        if r.json()["title"] ==  "Not found.": 
+            self.extract = "Hmmmmm.... {} ... Cette rue me dis quelque chose mais ma mémoire me joue des tours on dirait... Pose moi une autre question s'il te plait...".format(street)
         else:
             self.extract = r.json()["extract"]

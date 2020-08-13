@@ -59,7 +59,7 @@ class Map():
 
     def get_adress(self):
         # keyword = self.keyword.replace(" ", "+")
-        r = requests.get("https://maps.google.com/maps/api/geocode/json?address=France+" + keyword + "&sensor=false&key=" + KEY)
+        r = requests.get("https://maps.google.com/maps/api/geocode/json?address=France+" + self.keyword + "&sensor=false&key=" + KEY)
         return r.json()["results"][0]
 
 

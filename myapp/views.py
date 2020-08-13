@@ -5,7 +5,7 @@ import os
 # Getting environment variables :
 if os.environ.get('KEY') is None:
     from . import config
-    KEY = config.key
+    KEY = config.KEY
 else:
     KEY = os.environ.get('KEY')
 
@@ -68,4 +68,7 @@ class Wikipedia_extract():
     
     def __init__(self, street):
         r = requests.get("https://fr.wikipedia.org/api/rest_v1/page/summary/" + street)
-        self.extract = r.json()["extract"]
+        if r.json()["extract"] is None: 
+            self.extract = "Attends, cette rue me dis quelque chose mais ma mémoire me joue des tours on dirait... Pose moi une autre question s'il te plait..."
+        else:
+            self.extract = r.json()["extract"]

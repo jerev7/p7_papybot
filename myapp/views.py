@@ -35,7 +35,7 @@ def backend_process():
 
 
 def question_to_keyword(user_input):
-    input_into_words = user_input.replace("'", " ' ")
+    input_into_words = user_input.replace("'", " ' ").replace("Où", "où")
     input_list = input_into_words.split(" ")
     if "adresse" in input_list:
         adress_index = input_list.index("adresse")

@@ -51,15 +51,23 @@ def question_to_keyword(user_input):
 class Map():
     
     def __init__(self, keyword):
-        self.keyword = keyword.replace(" ", "+")
+        self.keyword = keyword
         result_get_adress = self.get_adress()
         self.adress_updated = result_get_adress["formatted_address"]
-        self.street = result_get_adress["address_components"][1]["long_name"]
+        
+        for i in range(0, 5):
+            if result_get_adress["address_components"][i]["types"][0] == "route":
+                street_key = i
+
+        self.street = result_get_adress["address_components"][street_key]["long_name"]
+        
+
+        # self.street = result_get_adress["address_components"][1]["long_name"]
         self.map_url = "https://www.google.com/maps/embed/v1/search?q=France+" + keyword + "&key=" + KEY
 
     def get_adress(self):
-        # keyword = self.keyword.replace(" ", "+")
-        r = requests.get("https://maps.google.com/maps/api/geocode/json?address=France+" + self.keyword + "&sensor=false&key=" + KEY)
+        keyword = self.keyword.replace(" ", "+")
+        r = requests.get("https://maps.google.com/maps/api/geocode/json?address=France+" + keyword + "&sensor=false&key=" + KEY)
         return r.json()["results"][0]
 
 

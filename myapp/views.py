@@ -59,13 +59,11 @@ class Map():
         self.keyword = keyword
         result_get_adress = self.get_adress()
         self.adress_updated = result_get_adress["formatted_address"]
-        
+        self.street = keyword
         for i in range(0, 5):
             if result_get_adress["address_components"][i]["types"][0] == "route":
                 street_key = i
                 self.street = result_get_adress["address_components"][street_key]["long_name"]
-            else:
-                self.street = keyword
         
 
         # self.street = result_get_adress["address_components"][1]["long_name"]

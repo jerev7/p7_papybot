@@ -37,7 +37,7 @@ def backend_process():
     wiki_extract = my_wiki.extract
     wiki_link = "https://fr.wikipedia.org/wiki/" + street
     
-    return jsonify(papy_response=papy_response, map_url=map_url, adress=adress, wiki_extract=wiki_extract, , wiki_link=wiki_link)
+    return jsonify(papy_response=papy_response, map_url=map_url, adress=adress, wiki_extract=wiki_extract, wiki_link=wiki_link)
 
 
 # def question_to_keyword(user_input):

@@ -85,15 +85,15 @@ def remove_article_from_keyword(keyword):
     keyword_updating = keyword.replace("'", " ' ")
     keyword_list = keyword_updating.split(" ")
     key_word_updating2 = [i for i in keyword_list if i not in STOP_WORDS]
-    key_word_updated = key_word_updating2[0]
+    key_word_updated = key_word_updating2
     return key_word_updated
 
 def create_papy_response(keyword_with_article):
-    if keyword_with_article[0] == "l":
-        return "Tout de suite mon petit. C'est simple, {} se trouve ".format(keyword_with_article)
-    elif keyword_with_article[0] == "d":
-        return "Tout de suite mon petit. C'est simple, l'adresse {} est ".format(keyword_with_article)
 
+    if keyword_with_article[0] == "d":
+        return "Tout de suite mon petit. C'est simple, l'adresse {} est ".format(keyword_with_article)
+    else:
+        return "Tout de suite mon petit. C'est simple, {} se trouve ".format(keyword_with_article)
 
 
 

@@ -85,7 +85,7 @@ def remove_article_from_keyword(keyword):
     keyword_updating = keyword.replace("'", " ' ")
     keyword_list = keyword_updating.split(" ")
     key_word_updating2 = [i for i in keyword_list if i not in STOP_WORDS]
-    key_word_updated = key_word_updating2
+    key_word_updated = " ".join(key_word_updating2)
     return key_word_updated
 
 def create_papy_response(keyword_with_article):

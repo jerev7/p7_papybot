@@ -58,6 +58,10 @@ def question_to_keyword(user_input):
     keyword = " ".join(list_updated)
     return keyword
 
+def question_to_keyword_with_article():
+    """
+    Function
+    """
 
 
 class Map():

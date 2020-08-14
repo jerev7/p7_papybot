@@ -2,8 +2,11 @@ import myapp.views
 import myapp.config
 import json
 
-def test_question_to_keyword():
-    assert myapp.views.question_to_keyword("Je voudrais savoir l'adresse d'Openclassrooms ?") == "Openclassrooms"
+def test_question_to_keyword_with article():
+    assert myapp.views.question_to_keyword_with_article("Je voudrais savoir l'adresse d'Openclassrooms ?") == "d'Openclassrooms"
+
+def test_remove_article_from_keyword():
+   assert myapp.views.remove_article_from_keyword("d'Openclassrooms") == "Openclassrooms"
 
 def substitute_func(self):
     myjson = '''{

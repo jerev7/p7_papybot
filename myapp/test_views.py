@@ -2,11 +2,18 @@ import myapp.views
 import myapp.config
 import json
 
-def test_question_to_keyword_with article():
-    assert myapp.views.question_to_keyword_with_article("Je voudrais savoir l'adresse d'Openclassrooms ?") == "d'Openclassrooms"
+def test_question_to_keyword_with_article():
+   assert myapp.views.question_to_keyword_with_article("Je voudrais savoir l'adresse d'Openclassrooms ?") == "d'Openclassrooms"
+   assert myapp.views.question_to_keyword_with_article("Je voulais te demander où se situe l'Elysée ?") == "l'Elysée"
 
 def test_remove_article_from_keyword():
    assert myapp.views.remove_article_from_keyword("d'Openclassrooms") == "Openclassrooms"
+   assert myapp.views.remove_article_from_keyword("l'Elysée") == "Elysée"
+
+def test_create_papy_response():
+   assert myapp.views.create_papy_response("l'Elysée") == "Tout de suite mon petit. C'est simple, l'Elysée se trouve "
+   assert myapp.views.create_papy_response("d'Openclassrooms") == "Tout de suite mon petit. C'est simple, l'adresse d'Openclassrooms est "
+
 
 def substitute_func(self):
     myjson = '''{

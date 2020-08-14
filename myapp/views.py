@@ -26,8 +26,10 @@ def backend_process():
     We get user's input and send all data updated to our javscript script
     """
     user_input = request.args.get('note')
-    keyword = question_to_keyword(user_input)
-    my_map = Map(keyword)
+    keyword_with_article = question_to_keyword_with_article(user_input)
+    papy_response = create_papy_response(keyword_with_article)
+    keyword_only = remove_article_from_keyword(keyword_with_article)
+    my_map = Map(keyword_only)
     adress = my_map.adress_updated
     street = my_map.street
     map_url = my_map.map_url
@@ -35,33 +37,65 @@ def backend_process():
     wiki_extract = my_wiki.extract
     wiki_link = "https://fr.wikipedia.org/wiki/" + street
     
-    return jsonify(map_url=map_url, adress=adress, wiki_extract=wiki_extract, keyword=keyword, wiki_link=wiki_link)
+    return jsonify(papy_response=papy_response, map_url=map_url, adress=adress, wiki_extract=wiki_extract, , wiki_link=wiki_link)
 
 
-def question_to_keyword(user_input):
+# def question_to_keyword(user_input):
+#     """
+#     Function used to keep only the key word from user's question
+#     """
+#     input_into_words = user_input.replace("'", " ' ").replace("Où", "où")
+#     input_list = input_into_words.split(" ")
+#     if "adresse" in input_list:
+#         adress_index = input_list.index("adresse")
+#         list_updating = input_list[adress_index + 1:]
+#     elif "où" in input_list:
+#         adress_index = input_list.index("où")
+#         list_updating = input_list[adress_index + 1:]
+#     else:
+#         list_updating = input_list
+
+#     list_updated = [i for i in list_updating if i not in STOP_WORDS] # We create a new list with all words in STOP_WORDS removed
+
+#     keyword = " ".join(list_updated)
+#     return keyword
+
+def question_to_keyword_with_article(user_input):
     """
-    Function used to keep only the key word from user's question
+    Function used to keep only keyword with its article from user's question
     """
-    input_into_words = user_input.replace("'", " ' ").replace("Où", "où")
+    input_into_words = user_input.replace("'", " ' ").replace("Où", "où").replace(" ?", "")
     input_list = input_into_words.split(" ")
     if "adresse" in input_list:
         adress_index = input_list.index("adresse")
         list_updating = input_list[adress_index + 1:]
     elif "où" in input_list:
-        adress_index = input_list.index("où")
-        list_updating = input_list[adress_index + 1:]
+        first_index = input_list.index("où")
+        list_updating_first = input_list[first_index + 1:]
+        words_to_remove = ["est", "situé", "se", "situe", "trouve"]
+        list_updating = [i for i in list_updating_first if i not in words_to_remove]
     else:
         list_updating = input_list
+    keyword_with_article_updating = " ".join(list_updating)
+    keyword_with_article = keyword_with_article_updating.replace(" ' ", "'")
+    return keyword_with_article
 
-    list_updated = [i for i in list_updating if i not in STOP_WORDS] # We create a new list with all words in STOP_WORDS removed
+def remove_article_from_keyword(keyword):
 
-    keyword = " ".join(list_updated)
-    return keyword
+    keyword_updating = keyword.replace("'", " ' ")
+    keyword_list = keyword_updating.split(" ")
+    key_word_updating2 = [i for i in keyword_list if i not in STOP_WORDS]
+    key_word_updated = key_word_updating2[0]
+    return key_word_updated
 
-def question_to_keyword_with_article():
-    """
-    Function
-    """
+def create_papy_response(keyword_with_article):
+    if keyword_with_article[0] == "l":
+        return "Tout de suite mon petit. C'est simple, {} se trouve ".format(keyword_with_article)
+    elif keyword_with_article[0] == "d":
+        return "Tout de suite mon petit. C'est simple, l'adresse {} est ".format(keyword_with_article)
+
+
+
 
 
 class Map():

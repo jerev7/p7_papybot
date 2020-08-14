@@ -8,7 +8,7 @@ function updateQuestion(route) {
     				$("#conversation").text(first_part);
     				$('#loader').show()
     				$("#loader").fadeOut(3000, function(event) {
-    					$("#conversation").append("\nPapybot : Tout de suite mon petit. L'adresse de " + data.keyword + " est " + data.adress).delay(5000);
+    					$("#conversation").append("\nPapybot : {}{}".format(data.papy_response, data.adress)).delay(5000);
 						$("#conversation").append("\nPapybot : Mais laisse moi t'en dire plus !... ");
 						$("#conversation").append("\n" + data.wiki_extract);
 						$("#wikilink").attr('href', data.wiki_link)

@@ -14,7 +14,7 @@ else:
 app = Flask(__name__)
 
 stop_words = []
-with open('stop_words.csv') as f:
+with open('myapp/stop_words.csv') as f:
     reader = csv.reader(f)
     # data = f.readlines()
     for row in reader:

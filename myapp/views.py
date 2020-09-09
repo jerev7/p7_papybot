@@ -113,7 +113,6 @@ class Map():
         return r.json()["results"][0]
 
 
-
 class Wikipedia_extract():
     """
     This class will make requests to Wikipedia API

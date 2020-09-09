@@ -14,6 +14,7 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
     crossorigin="anonymous"
     >
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mycss.css') }}" />
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
       <title>Papybot</title>
   </head>
@@ -72,13 +73,14 @@
       </div>
       <div class="row">
         <div class="col mt-5">
-          <iframe
-            id="imggoogle"
-            width="100%"
-            height="450"
-            frameborder="0" style="border:0"
-            src="" allowfullscreen>
-          </iframe>
+          <div class="map-responsive">
+            <iframe
+              id="imggoogle"
+              width="100%"
+              height="450"
+              frameborder="0" style="border:0"
+              src="/" allowfullscreen>
+            </iframe>
         </div>
       </div>
     </div>

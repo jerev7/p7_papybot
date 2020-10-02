@@ -5,13 +5,15 @@ function updateQuestion(route) {
 	    			$("#imggoogle").attr('src', data.map_url);
     				let first_part = ("Vous : " + ($("#note").val()));
     				$("#conversation").show()
-    				$("#conversation").text(first_part);
+    				$("#conversation").append(first_part);
     				$('#loader').show()
     				$("#loader").fadeOut(3000, function(event) {
     					$("#conversation").append("\nPapybot : " + data.papy_response + data.adress).delay(5000);
 						$("#conversation").append("\nPapybot : Mais laisse moi t'en dire plus !... ");
 						$("#conversation").append("\n" + data.wiki_extract);
-						$("#wikilink").attr('href', data.wiki_link)
+						$("#conversation").append("\n");
+    					$("#conversation").scrollTop($("#conversation")[0].scrollHeight);
+						$("#wikilink").attr('href', data.wiki_link);
 						$("#wikilink").show();
 						$("#imggoogle").show();
 	    			});

@@ -19,8 +19,9 @@ def test_remove_article_from_keyword():
 def test_create_papy_response():
     assert myapp.views.create_papy_response("l'Elysée") \
            == "Tout de suite mon petit. C'est simple, l'Elysée se trouve "
-    assert myapp.views.create_papy_response("d'Openclassrooms") == "Tout \
-           de suite mon petit. C'est simple, l'adresse d'Openclassrooms est "
+    assert myapp.views.create_papy_response("d'Openclassrooms") \
+           == ("Tout de suite mon petit. C'est simple, " +
+               "l'adresse d'Openclassrooms est ")
 
 
 def substitute_func(self):

@@ -111,7 +111,7 @@ class Map():
         self.adress_updated = result_get_adress["formatted_address"]
         self.street = keyword
         # if there is no street we gonna keep the keyword to do wiki search
-        for i in range(0, 5):
+        for i in range(0, len(result_get_adress["address_components"])):
             if result_get_adress["address_components"][i]["types"][0] == "route":
                 street_key = i
                 self.street = (result_get_adress["address_components"]
